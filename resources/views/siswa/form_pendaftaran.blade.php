@@ -33,7 +33,8 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <!-- Logo + Nama -->
             <div class="flex items-center space-x-3">
-                <img src="/asset/logo sipesar.png" alt="Logo SIPESAR" class="w-16 h-16 rounded-full bg-white p-0 shadow">
+                <img src="/asset/logo sipesar.png" alt="Logo SIPESAR"
+                    class="w-16 h-16 rounded-full bg-white p-0 shadow">
                 <div class="flex flex-col">
                     <span class="text-lg font-bold text-white">SD Negeri Larangan</span>
                     <span class="text-sm text-gray-200">Portal SIPESAR (Sistem Penerimaan Siswa Baru)</span>
@@ -58,14 +59,15 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-8">
-        @if(session('status'))
-        <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">{{ session('status') }}</div>
+        @if (session('status'))
+            <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">{{ session('status') }}</div>
         @endif
 
         <div class="grid lg:grid-cols-3 gap-8">
             <!-- Form Content -->
             <div class="lg:col-span-2">
-                <form id="registrationForm" class="space-y-8" method="POST" action="{{ route('siswa.form.submit') }}" enctype="multipart/form-data">
+                <form id="registrationForm" class="space-y-8" method="POST" action="{{ route('siswa.form.submit') }}"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <!-- Data Diri Siswa -->
@@ -76,7 +78,8 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
                                 <input name="nama" type="text" placeholder="Masukkan nama lengkap"
                                     value="{{ old('nama', $formData['nama'] ?? '') }}"
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" required>
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                                    required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">NIK</label>
@@ -101,8 +104,12 @@
                                 <select name="jenis_kelamin"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500">
                                     <option value="">Pilih</option>
-                                    <option value="L" {{ (old('jenis_kelamin', $formData['jenis_kelamin'] ?? '') === 'L') ? 'selected' : '' }}>Laki-laki</option>
-                                    <option value="P" {{ (old('jenis_kelamin', $formData['jenis_kelamin'] ?? '') === 'P') ? 'selected' : '' }}>Perempuan</option>
+                                    <option value="L"
+                                        {{ old('jenis_kelamin', $formData['jenis_kelamin'] ?? '') === 'L' ? 'selected' : '' }}>
+                                        Laki-laki</option>
+                                    <option value="P"
+                                        {{ old('jenis_kelamin', $formData['jenis_kelamin'] ?? '') === 'P' ? 'selected' : '' }}>
+                                        Perempuan</option>
                                 </select>
                             </div>
                             <div>
@@ -110,8 +117,10 @@
                                 <select name="agama"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500">
                                     <option value="">Pilih</option>
-                                    @foreach(['Islam','Kristen','Katolik','Hindu','Buddha','Konghucu'] as $agama)
-                                    <option value="{{ $agama }}" {{ (old('agama', $formData['agama'] ?? '') === $agama) ? 'selected' : '' }}>{{ $agama }}</option>
+                                    @foreach (['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu'] as $agama)
+                                        <option value="{{ $agama }}"
+                                            {{ old('agama', $formData['agama'] ?? '') === $agama ? 'selected' : '' }}>
+                                            {{ $agama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -174,53 +183,67 @@
                     </div>
 
                     <!-- Upload Dokumen -->
-                    <div class="bg-white rounded-2xl shadow-lg p-6 form-section border border-teal-200">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Upload Dokumen</h3>
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Kartu Keluarga</label>
-                                <input name="kk" type="file" class="w-full">
-                                @if(!empty($formData['kartu_keluarga']))
-                                <p class="text-sm text-gray-600 mt-1">File saat ini: {{ $formData['kartu_keluarga'] }}</p>
-                                @endif
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Akta Kelahiran</label>
-                                <input name="akta" type="file" class="w-full">
-                                @if(!empty($formData['akta_kelahiran']))
-                                <p class="text-sm text-gray-600 mt-1">File saat ini: {{ $formData['akta_kelahiran'] }}</p>
-                                @endif
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Foto 3x4</label>
-                                <input name="foto" type="file" class="w-full">
-                                @if(!empty($formData['foto_3x4']))
-                                <p class="text-sm text-gray-600 mt-1">File saat ini: {{ $formData['foto_3x4'] }}</p>
-                                @endif
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Ijazah</label>
-                                <input name="ijazah" type="file" class="w-full">
-                                @if(!empty($formData['ijazah']))
-                                <p class="text-sm text-gray-600 mt-1">File saat ini: {{ $formData['ijazah'] }}</p>
-                                @endif
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">KTP Orang Tua</label>
-                                <input name="ktp_ortu" type="file" class="w-full">
-                                @if(!empty($formData['ktp_ortu']))
-                                <p class="text-sm text-gray-600 mt-1">File saat ini: {{ $formData['ktp_ortu'] }}</p>
-                                @endif
-                            </div>
-                                                        <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Kartu Bantuan</label>
-                                <input name="kartu_bantuan" type="file" class="w-full">
-                                @if(!empty($formData['kartu_bantuan']))
-                                    <p class="text-sm text-gray-600 mt-1">File saat ini: {{ $formData['kartu_bantuan'] }}</p>
-                                @endif
-                            </div>
-                        </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Kartu Keluarga <span class="text-xs text-gray-500">(PDF/JPG)</span>
+                        </label>
+                        <input name="kk" type="file" class="w-full" accept=".pdf,.jpg,.jpeg" required>
+                        @error('kk')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Akta Kelahiran <span class="text-xs text-gray-500">(PDF/JPG)</span>
+                        </label>
+                        <input name="akta" type="file" class="w-full" accept=".pdf,.jpg,.jpeg" required>
+                        @error('akta')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Foto 3x4 <span class="text-xs text-gray-500">(JPG)</span>
+                        </label>
+                        <input name="foto" type="file" class="w-full" accept=".jpg,.jpeg" required>
+                        @error('foto')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Ijazah <span class="text-xs text-gray-500">(PDF/JPG)</span>
+                        </label>
+                        <input name="ijazah" type="file" class="w-full" accept=".pdf,.jpg,.jpeg">
+                        @error('ijazah')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            KTP Orang Tua <span class="text-xs text-gray-500">(PDF/JPG)</span>
+                        </label>
+                        <input name="ktp_ortu" type="file" class="w-full" accept=".pdf,.jpg,.jpeg">
+                        @error('ktp_ortu')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Kartu Bantuan <span class="text-xs text-gray-500">(PDF/JPG)</span>
+                        </label>
+                        <input name="kartu_bantuan" type="file" class="w-full" accept=".pdf,.jpg,.jpeg">
+                        @error('kartu_bantuan')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
 
                     <!-- Tombol Aksi -->
                     <div class="bg-white rounded-2xl shadow-lg p-6 border border-teal-200">
@@ -233,7 +256,8 @@
                                 class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors">
                                 Simpan Draft
                             </button>
-                            <a href="{{ route('siswa.dashboard') }}" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors inline-flex items-center">
+                            <a href="{{ route('siswa.dashboard') }}"
+                                class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors inline-flex items-center">
                                 Batalkan
                             </a>
                         </div>
